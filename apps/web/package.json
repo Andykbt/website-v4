@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "dev:bare": "astro dev",
+    "dev": "astro dev",
     "clean": "rm -rf .astro .turbo dist node_modules"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "@astrojs/cloudflare": "^12.6.12",
     "@cloudflare/workers-types": "catalog:",
     "@tailwindcss/vite": "^4.1.18",
+    "@types/react": "^19.2.14",
     "@website-v4/config": "workspace:*",
     "shadcn": "^3.8.5",
     "tailwindcss": "^4.1.18",
