@@ -23,7 +23,8 @@
     "dev:web": "turbo -F web dev",
     "deploy": "turbo -F @website-v4/infra deploy",
     "destroy": "turbo -F @website-v4/infra destroy",
-    "check": "biome check --write ."
+    "check": "biome check --write .",
+    "clean": "rm -rf .astro .turbo dist node_modules"
   },
   "dependencies": {
     "@website-v4/env": "workspace:*",

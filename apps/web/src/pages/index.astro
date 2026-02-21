@@ -1,27 +1,34 @@
 ---
+import Card from "../layouts/Card.astro";
 import Layout from "../layouts/Layout.astro";
-
-const TITLE_TEXT = `
- ██████╗ ███████╗████████╗████████╗███████╗██████╗
- ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗
- ██████╔╝█████╗     ██║      ██║   █████╗  ██████╔╝
- ██╔══██╗██╔══╝     ██║      ██║   ██╔══╝  ██╔══██╗
- ██████╔╝███████╗   ██║      ██║   ███████╗██║  ██║
- ╚═════╝ ╚══════╝   ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝
-
- ████████╗    ███████╗████████╗ █████╗  ██████╗██╗  ██╗
- ╚══██╔══╝    ██╔════╝╚══██╔══╝██╔══██╗██╔════╝██║ ██╔╝
-    ██║       ███████╗   ██║   ███████║██║     █████╔╝
-    ██║       ╚════██║   ██║   ██╔══██║██║     ██╔═██╗
-    ██║       ███████║   ██║   ██║  ██║╚██████╗██║  ██╗
-    ╚═╝       ╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
- `;
+import Link from "../layouts/Link.astro";
+import Section from "../layouts/Section.astro";
 ---
 
 <Layout title="website-v4">
-  <div class="container mx-auto max-w-3xl px-4 py-2">
-    <pre class="overflow-x-auto font-mono text-sm text-white">{TITLE_TEXT}</pre>
-    <div class="grid gap-6">
+  <div class=" flex flex-col gap-16 mx-auto max-w-2xl py-16 px-6 md:py-24">
+
+    <div class="flex flex-col gap-4 px-4">
+      <h1 class="text-lg">Andy Truong</h1>
+      <p class="text-muted-foreground">Software Engineer @ Fire Front Solutions</p>
+    </div>
+
+    <Section title="Work">
+      <Card title="Fire Front Solutions" description="Software Engineer" href="https://www.firemapper.app/" />
+      <Card title="SafetyCulture" description="Full Stack Software Engineer, Intern" href="https://safetyculture.com/" />
+      <Card title="Frontend Web Developer" description="PCMarket" href="https://www.pcmarket.com.au/" />
+    </Section>
+
+    <Section title="Projects">
+      <Card title="Ascend" description="React Native Climbing Progress Tracker" href="https://www.ascendapp.xyz/" />
+    </Section>
+
+    <div class="border-t border-border pt-8 px-4">
+      <div class="flex flex-row gap-8 text-sm">
+        <Link href="https://www.linkedin.com/in/andy-truong-591449216/">LinkedIn</Link>
+        <Link href="https://github.com/Andykbt">Github</Link>
+        <Link href="mailto:andy.truong2001@gmail.com">Email</Link>
+      </div>
     </div>
   </div>
 </Layout>
