@@ -2,13 +2,18 @@
 interface Props {
     title: string;
     description: string;
+    date: string
     href: string;
 }
 
-const { title, description, href } = Astro.props;
+const { title, description, date, href } = Astro.props;
 ---
 
-<a href={href} target="_blank" class="flex flex-col gap-4 text-muted-foreground transition-all group hover:bg-accent/50 p-4">
-    <h3 class="transition-colors group-hover:text-foreground">{title}</h3>
-    <p class="text-sm">{description}</p>
+<a href={href} target="_blank" class="flex flex-row justify-between text-muted-foreground transition-all group rounded-xs hover:bg-accent/50 p-4">
+    <div class="flex flex-col gap-2">
+        <h3 class="transition-colors group-hover:text-foreground">{title}</h3>
+        <p class="text-sm">{description}</p>
+    </div>
+
+    <p class="text-xs text-muted-foreground">{date}</p>
 </a>
