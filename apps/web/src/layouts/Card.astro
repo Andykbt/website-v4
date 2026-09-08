@@ -7,13 +7,65 @@ interface Props {
 }
 
 const { title, description, date, href } = Astro.props;
+const hostname = new URL(href).hostname.replace(/^www\./, "");
+const previewSrc = `https://api.microlink.io/?url=${encodeURIComponent(href)}&screenshot=true&meta=false&embed=screenshot.url`;
 ---
 
-<a href={href} target="_blank" class="flex flex-row justify-between text-muted-foreground transition-all group rounded-xs hover:bg-accent/50 p-4">
+<a
+    href={href}
+    target="_blank"
+    data-card
+    class="relative flex flex-row justify-between text-muted-foreground transition-all duration-150 ease-out group rounded-xs hover:bg-accent/50 active:scale-[0.98] p-4"
+>
     <div class="flex flex-col gap-2">
         <h3 class="transition-colors group-hover:text-foreground">{title}</h3>
         <p class="text-sm">{description}</p>
     </div>
 
     <p class="text-xs text-muted-foreground">{date}</p>
+
+    <div
+        data-card-preview
+        class="pointer-events-none absolute top-full z-50 mt-2 w-64 -translate-x-1/2 translate-y-1 opacity-0 scale-95 transition-[opacity,transform,left] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-hover:scale-100"
+        style="left: 50%;"
+        aria-hidden="true"
+    >
+        <div class="overflow-hidden rounded-md border border-border bg-popover shadow-xl">
+            <div class="flex items-center gap-1.5 border-b border-border bg-muted/40 px-2.5 py-1.5">
+                <span class="size-1.5 rounded-full bg-muted-foreground/35"></span>
+                <span class="size-1.5 rounded-full bg-muted-foreground/35"></span>
+                <span class="size-1.5 rounded-full bg-muted-foreground/35"></span>
+                <span class="ml-1.5 truncate text-[10px] text-muted-foreground">{hostname}</span>
+            </div>
+            <img
+                src={previewSrc}
+                alt=""
+                width="256"
+                height="160"
+                loading="lazy"
+                decoding="async"
+                class="aspect-[16/10] w-full bg-muted object-cover object-top"
+            />
+        </div>
+    </div>
 </a>
+
+<script>
+    function bindCardPreviews() {
+        for (const card of document.querySelectorAll<HTMLElement>("[data-card]")) {
+            if (card.dataset.previewBound === "true") continue;
+            card.dataset.previewBound = "true";
+
+            const preview = card.querySelector<HTMLElement>("[data-card-preview]");
+            if (!preview) continue;
+
+            card.addEventListener("mousemove", (event) => {
+                const rect = card.getBoundingClientRect();
+                preview.style.left = `${event.clientX - rect.left}px`;
+            });
+        }
+    }
+
+    bindCardPreviews();
+    document.addEventListener("astro:page-load", bindCardPreviews);
+</script>
