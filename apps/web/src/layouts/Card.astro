@@ -66,6 +66,28 @@ const previewSrc = `https://api.microlink.io/?url=${encodeURIComponent(href)}&sc
         }
     }
 
+    function prefetchCardPreviews() {
+        for (const img of document.querySelectorAll<HTMLImageElement>("[data-card-preview] img")) {
+            if (img.dataset.previewPrefetched === "true") continue;
+            img.dataset.previewPrefetched = "true";
+            img.loading = "eager";
+            void img.decode().catch(() => {});
+        }
+    }
+
+    function schedulePrefetch() {
+        const run = () => prefetchCardPreviews();
+        if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(run, { timeout: 2000 });
+        } else {
+            window.setTimeout(run, 1);
+        }
+    }
+
     bindCardPreviews();
-    document.addEventListener("astro:page-load", bindCardPreviews);
+    schedulePrefetch();
+    document.addEventListener("astro:page-load", () => {
+        bindCardPreviews();
+        schedulePrefetch();
+    });
 </script>
